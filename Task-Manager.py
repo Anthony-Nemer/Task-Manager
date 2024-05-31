@@ -65,21 +65,21 @@ class TaskManager:
         self.EnterTask = ttk.Entry(entry_frame, width=30)
         self.EnterTask.pack(side=tk.LEFT, padx=5)
         
-        self.AddTask = ttk.Button(entry_frame, text="Add Task +", command=self.Add_Task)
+        self.AddTask = ttk.Button(entry_frame, text="Add Task \u2795", command=self.Add_Task)
         self.AddTask.pack(side=tk.LEFT, padx=5)
 
         # Buttons frame
         button_frame = ttk.Frame(root, padding="10")
         button_frame.pack(fill=tk.X)
 
-        self.DeleteTask = ttk.Button(button_frame, text="Delete Task -", command=self.Delete_Task)
+        self.DeleteTask = ttk.Button(button_frame, text="Delete Task \u2716", command=self.Delete_Task)
         self.DeleteTask.pack(side=tk.LEFT, padx=5)
         
-        self.CompleteTask = ttk.Button(button_frame, text="Mark as Complete *", command=self.Marked_Completed)
+        self.CompleteTask = ttk.Button(button_frame, text="Mark as Complete ✔", command=self.Marked_Completed)
         self.CompleteTask.pack(side=tk.LEFT, padx=5)
 
         # Export button
-        self.ExportButton = ttk.Button(button_frame, text="Export Completed Tasks", command=self.Export_Completed_Tasks)
+        self.ExportButton = ttk.Button(button_frame, text="Export Completed Tasks \u2192", command=self.Export_Completed_Tasks)
         self.ExportButton.pack(side=tk.LEFT, padx=5)
 
         # Main frame for completed tasks
