@@ -62,6 +62,8 @@ class TaskManager:
         entry_frame = ttk.Frame(root, padding="10")
         entry_frame.pack(fill=tk.X)
 
+        self.addTask_label = ttk.Label(entry_frame, text="Enter new Task:", font=("Helvetica", 12))
+        self.addTask_label.pack(side=tk.LEFT, padx=5)    
         self.EnterTask = ttk.Entry(entry_frame, width=30)
         self.EnterTask.pack(side=tk.LEFT, padx=5)
         
@@ -100,7 +102,9 @@ class TaskManager:
 
     def Add_Task(self):
         new_task = self.EnterTask.get()
-        if new_task:
+        if not new_task:
+            messagebox.showinfo("Add New Task", "Enter a task to add.")
+        elif new_task:
             timestamp = datetime.now().strftime("%I:%M:%S %p")
             task_with_id = f"#{self.TaskID}: {new_task} (Added: {timestamp})"
             self.TaskList.append(task_with_id)
@@ -110,14 +114,18 @@ class TaskManager:
 
     def Delete_Task(self):
         selections = self.TaskListBox.curselection()
-        if selections:
+        if not selections:
+            messagebox.showinfo("Delete Task", "No task selected.")          
+        elif selections:
             for index in reversed(selections):
                 del self.TaskList[index]
             self.Update_Task_List()
 
     def Marked_Completed(self):
         selections = self.TaskListBox.curselection()
-        if selections:
+        if not selections:
+            messagebox.showinfo("Mark as complete", "No task selected.") 
+        elif selections:
             for index in reversed(selections):
                 task = self.TaskList.pop(index)
                 if not task.startswith('\u2713'):
@@ -141,7 +149,7 @@ class TaskManager:
 
     def Export_Completed_Tasks(self):
         if not self.CompletedTaskList:
-            messagebox.showinfo("Export Completed Tasks", "No completed tasks to export.")
+            messagebox.showerror("Export Completed Tasks", "No completed tasks to export.")
             return
         try:
             script_directory = os.path.dirname(os.path.abspath(__file__))
