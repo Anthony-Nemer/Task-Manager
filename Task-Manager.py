@@ -18,29 +18,31 @@ class TaskManager:
         self.TaskID = 1  # Counter for task IDs
 
 
-        # Load image
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        image_path = os.path.join(script_directory, "icon.png")
-        if os.path.exists(image_path):
-            image = Image.open(image_path)
+        
+        pathOfThisCode = os.path.dirname(os.path.abspath(__file__))
+        checkImage = os.path.join(pathOfThisCode, "icon.png")
+        if os.path.exists(checkImage):
+            image = Image.open(checkImage)
             image = image.resize((50, 50))
             self.logo_image = ImageTk.PhotoImage(image)
         else:
             self.logo_image = None
 
 
-        # Style configuration
         style = ttk.Style()
+        #buttons
         style.configure("TButton", font=("Helvetica", 10))
+        #labels
         style.configure("TLabel", font=("Helvetica", 12))
+        #entries
         style.configure("TEntry", font=("Helvetica", 12))
 
-        # Main frame for ongoing tasks
+
         main_frame = ttk.Frame(root, padding="10")
         main_frame.pack(expand=True, fill=tk.BOTH)
 
 
-        # Logo label
+        #load the logo image in the top of the frame
         if self.logo_image:
             self.logo_label = tk.Label(main_frame, image=self.logo_image)
             self.logo_label.pack(side=tk.TOP, padx=10, pady=10)
@@ -71,20 +73,20 @@ class TaskManager:
         self.AddTask.pack(side=tk.LEFT, padx=5)
 
         # Buttons frame
-        button_frame = ttk.Frame(root, padding="10")
-        button_frame.pack(fill=tk.X)
+        buttons_frame = ttk.Frame(root, padding="10")
+        buttons_frame.pack(fill=tk.X)
 
-        self.DeleteTask = ttk.Button(button_frame, text="Delete Task \u2716", command=self.Delete_Task)
+        self.DeleteTask = ttk.Button(buttons_frame, text="Delete Task \u2716", command=self.Delete_Task)
         self.DeleteTask.pack(side=tk.LEFT, padx=5)
         
-        self.CompleteTask = ttk.Button(button_frame, text="Mark as Complete ✔", command=self.Marked_Completed)
+        self.CompleteTask = ttk.Button(buttons_frame, text="Mark as Complete ✔", command=self.Marked_Completed)
         self.CompleteTask.pack(side=tk.LEFT, padx=5)
 
         # Export button
-        self.ExportButton = ttk.Button(button_frame, text="Export Completed Tasks \u2192", command=self.Export_Completed_Tasks)
+        self.ExportButton = ttk.Button(buttons_frame, text="Export Completed Tasks \u2192", command=self.Export_Completed_Tasks)
         self.ExportButton.pack(side=tk.LEFT, padx=5)
 
-        # Main frame for completed tasks
+        # frame for completed tasks
         completed_frame = ttk.Frame(root, padding="10")
         completed_frame.pack(expand=True, fill=tk.BOTH)
 
@@ -152,8 +154,8 @@ class TaskManager:
             messagebox.showerror("Export Completed Tasks", "No completed tasks to export.")
             return
         try:
-            script_directory = os.path.dirname(os.path.abspath(__file__))
-            file_path = os.path.join(script_directory, "completed_tasks.txt")
+            pathOfThisCode = os.path.dirname(os.path.abspath(__file__))
+            file_path = os.path.join(pathOfThisCode, "completed_tasks.txt")
             with open(file_path, "w", encoding="utf-8") as file:
                 for task in self.CompletedTaskList:
                     file.write(task + "\n")
