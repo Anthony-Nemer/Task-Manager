@@ -1,3 +1,7 @@
+#Project by Anthony Nemer, 60282
+#        and Jennifer El fakir, 60396.
+
+
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
